@@ -8,6 +8,15 @@ const config: Config = {
     ],
     theme: {
         extend: {
+            keyframes: {
+                refresh: {
+                    "0%": { transform: "rotate(45deg)" },
+                    "100%": { transform: "rotate(360deg)" },
+                },
+            },
+            animation: {
+                refresh: "refresh 1s ease-in-out infinite",
+            },
             colors: {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
