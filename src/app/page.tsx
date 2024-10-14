@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import QuestionEditor from "./components/home/QuestionEditor";
+import { Question, Alternative } from "./components/home/question";
 
 export default function Home() {
     const [editing, set_edit_mode] = useState(false);
+    const [questions, set_questions] = useState<Question[]>([]);
 
     return (
         <div className="dark">
@@ -40,7 +42,14 @@ export default function Home() {
                 </button>
             </div>
             <div className="mx-2 p-0.5 w-sreen h-screen">
-                {editing ? <QuestionEditor /> : ""}
+                {editing ? (
+                    <QuestionEditor
+                        questions={questions}
+                        set_questions={set_questions}
+                    />
+                ) : (
+                    ""
+                )}
             </div>
         </div>
     );
