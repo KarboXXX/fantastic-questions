@@ -12,7 +12,7 @@
   "dependencies": {
     "@types/uuid": "^10.0.0",
     "class-transformer": "^0.5.1",
-    "next": "14.2.15",
+    "next": "14.2.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-draggable-list": "^4.2.1",
