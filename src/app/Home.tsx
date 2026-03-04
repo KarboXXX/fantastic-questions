@@ -1,25 +1,15 @@
 "use client";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import QuestionEditor from "./components/home/QuestionEditor";
 import { Question } from "./components/home/question";
 import QuestionAnswer from "./components/home/QuestionAnswer";
-import {
-    retreiveLocalQuestions,
-    saveLocalQuestions,
-} from "./utils/storageManager";
 
 export default function Home() {
     // const [, forceUpdate] = useReducer((x) => x + 1, 0);
-
     const [editing, set_edit_mode] = useState(false);
     const [questions, set_questions] = useState<Question[]>([]);
     const [spinning, set_spinning] = useState(false);
     const [times_emptied, set_empty_state] = useState<number>(0);
-
-    useEffect(() => {
-        set_questions(retreiveLocalQuestions(localStorage));
-    }, []);
 
     return (
         <div className="dark">
@@ -34,7 +24,6 @@ export default function Home() {
                         animation: "pulse 1s infinite",
                     }}
                     onClick={() => {
-                        saveLocalQuestions(window.localStorage, questions);
                         set_edit_mode(!editing);
                     }}>
                     {editing ? "Visualizar" : "Editar"}
