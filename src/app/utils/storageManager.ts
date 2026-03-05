@@ -1,5 +1,7 @@
 import { Question } from "../components/home/question";
 
+const LOCAL_KEY = "questions";
+
 interface JSONQuestion {
     alternatives: [
         {
@@ -12,24 +14,28 @@ interface JSONQuestion {
     id: string;
 }
 
-const encoder = new TextEncoder();
 export function saveLocalQuestions(
     localStorage: Storage,
     questions: Question[],
 ): string {
-    let textedQuestionArray: string = JSON.stringify(questions);
-    localStorage.setItem("questions", textedQuestionArray);
+    const textedQuestionArray: string = JSON.stringify(questions);
+    localStorage.setItem(LOCAL_KEY, textedQuestionArray);
     return textedQuestionArray;
 }
 
 export function retreiveLocalQuestions(localStorage: Storage): Question[] {
-    const stored = localStorage.getItem("questions");
+    const stored = localStorage.getItem(LOCAL_KEY);
     if (!stored || stored == "") return [];
 
+    return parseQuestionsJSON(stored);
+}
+
+export function parseQuestionsJSON(stored: string | null): Question[] {
+    if (!stored) return [];
     try {
         const questionsParsedObject: JSONQuestion[] = JSON.parse(stored);
         console.log(questionsParsedObject);
-        let questions: Question[] = questionsParsedObject.flatMap((v, _i) => {
+        const questions: Question[] = questionsParsedObject.flatMap((v) => {
             return new Question(v.alternatives, v.title);
         });
         return questions;

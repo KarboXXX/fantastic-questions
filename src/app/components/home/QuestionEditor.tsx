@@ -1,7 +1,6 @@
 import {
     useState,
     useRef,
-    createRef,
     LegacyRef,
     useReducer,
     MutableRefObject,
@@ -81,7 +80,7 @@ export default function QuestionEditor({
                         stroke="currentColor"
                         onClick={() => {
                             set_correct(!correct);
-                            var current = correct_options;
+                            const current = correct_options;
                             current[id] = !current[id];
                             set_correct_options(current);
                         }}
@@ -104,7 +103,7 @@ export default function QuestionEditor({
     }
     class SingleQuestionAlternativesEditor extends Component<SingleQuestionAlternativesEditorProps> {
         render() {
-            const { item, dragHandleProps, itemSelected } = this.props;
+            const { item, dragHandleProps } = this.props;
             return (
                 <div className="flex flex-row block relative justify-center items-center content-center">
                     <div className="group cursor-move" {...dragHandleProps}>
@@ -174,7 +173,7 @@ export default function QuestionEditor({
         } as SingleQuestionEditorState;
 
         render() {
-            const { item, itemSelected, dragHandleProps } = this.props;
+            const { item, dragHandleProps } = this.props;
             const { editing_alternatives } = this.state;
 
             return (
@@ -243,7 +242,7 @@ export default function QuestionEditor({
                         <div
                             className="cursor-pointer group block relative"
                             onClick={() => {
-                                let newlist = questions.filter((question) => {
+                                const newlist = questions.filter((question) => {
                                     return question !== item;
                                 });
                                 set_questions(newlist);
@@ -335,7 +334,7 @@ export default function QuestionEditor({
             })}
             <button
                 onClick={() => {
-                    var alternatives: Alternative[] = [];
+                    const alternatives: Alternative[] = [];
                     input_references.forEach((reference, id) => {
                         if (reference.current === null) return;
                         alternatives.push(
@@ -346,7 +345,7 @@ export default function QuestionEditor({
                         );
                         reference.current.value = "";
                     });
-                    var question = new Question(
+                    const question = new Question(
                         alternatives,
                         title_ref.current!.value,
                     );
@@ -357,7 +356,7 @@ export default function QuestionEditor({
                         }),
                     );
 
-                    let current_questions = questions;
+                    const current_questions = questions;
                     current_questions.push(question);
                     set_questions(current_questions);
                     forceUpdate();

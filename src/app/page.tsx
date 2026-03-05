@@ -5,6 +5,7 @@ import QuestionEditor from "./components/home/QuestionEditor";
 import { Question } from "./components/home/question";
 import QuestionAnswer from "./components/home/QuestionAnswer";
 import {
+    parseQuestionsJSON,
     retreiveLocalQuestions,
     saveLocalQuestions,
 } from "./utils/storageManager";
@@ -20,10 +21,20 @@ export default function Home() {
     useEffect(() => {
         set_questions(retreiveLocalQuestions(localStorage));
     }, []);
-
     return (
         <div className="dark">
             <div className="w-full h-9 bg-stone-900 drop-shadow-xl flex flex-row justify-center content-center items-center rounded-b-md">
+                <button
+                    className={`transition duration-200 rounded-lg px-3 py-1.5 mx-5 content-center items-center justify-center bg-zinc-900 hover:bg-zinc-800 text-white`}
+                    onClick={() => {
+                        const json: string | null = prompt(
+                            "Cole seu JSON aqui!",
+                        );
+                        set_questions(parseQuestionsJSON(json));
+                    }}>
+                    Importar (JSON)
+                </button>
+                <button></button>
                 <button
                     className={`transition duration-200 rounded-lg px-3 py-1.5 mx-5 w-24 content-center items-center justify-center`}
                     style={{

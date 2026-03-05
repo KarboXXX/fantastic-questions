@@ -1,13 +1,5 @@
-import { Question, Alternative } from "./question";
-import {
-    useRef,
-    useEffect,
-    useReducer,
-    useState,
-    Dispatch,
-    SetStateAction,
-    MutableRefObject,
-} from "react";
+import { Question } from "./question";
+import { useState, Dispatch, SetStateAction } from "react";
 
 interface SingleQuestionAnswerProps {
     question: Question;
@@ -42,7 +34,7 @@ function SingleQuestionAnswer({
                 className="list-disc marker:stone-700 *:py-1 truncate text-pretty *:text-pretty">
                 {question.get_alternative_array().map((alternative, i) => {
                     return (
-                        <li>
+                        <li key={i}>
                             <button
                                 disabled={answered}
                                 className={`group relative px-3 py-0.5 text-pretty truncate bg-stone-900 ${alternative.correct ? "disabled:bg-green-900" : clicked_option == i ? "disabled:bg-red-900" : "disabled:bg-gray-900"} rounded-md hover:bg-stone-800 transition-all duration:200`}
@@ -50,7 +42,7 @@ function SingleQuestionAnswer({
                                     set_answered(true);
                                     set_clicked_option(i);
 
-                                    let current_grades = grade_array;
+                                    const current_grades = grade_array;
                                     current_grades.push(alternative.correct);
                                     set_grade_array(current_grades);
                                 }}>
@@ -75,12 +67,13 @@ export default function QuestionAnswer({ questions }: QuestionAnswerProps) {
 
     return (
         <div className="flex flex-col truncate text-pretty">
-            {questions.map((question) => {
+            {questions.map((question, i) => {
                 return (
                     <SingleQuestionAnswer
                         grade_array={grade_array}
                         set_grade_array={set_grade_array}
                         question={question}
+                        key={i}
                     />
                 );
             })}
